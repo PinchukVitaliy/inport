@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ChatBotAppDataBaseTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CustAccounts">
+    <Key>
+      <PropertyRef Name="KontAccountId" />
+      <PropertyRef Name="CompanyId" />
+      <PropertyRef Name="CustId" />
+    </Key>
+    <Property Name="KontAccountId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CompanyId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CustAccountId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="WorksId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="WorksName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CustType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GreenTariff" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CustId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RecId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreateDateTime" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="CustMeterPoints">
+    <Key>
+      <PropertyRef Name="EICCode" />
+    </Key>
+    <Property Name="RecId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KontAccountId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="District" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HouseNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PostCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Corp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FlatNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EICCode" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SerialNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDateTime" Type="DateTime" Precision="7" />
+    <Property Name="ModifyDateTime" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="CustTable">
+    <Key>
+      <PropertyRef Name="CustId" />
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CustId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CompanyId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TelephoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RecId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreateDateTime" Type="DateTime" Precision="7" />
+    <NavigationProperty Name="EngChatTable" Relationship="Self.FK_EngChatTable_CustTable_CustId_CompanyId" FromRole="CustTable" ToRole="EngChatTable" />
+  </EntityType>
+  <EntityType Name="EngChatTable">
+    <Key>
+      <PropertyRef Name="ChatId" />
+    </Key>
+    <Property Name="UserDialogId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="RecId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TextMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StateId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TempStateId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LanguageId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="CustId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="MessengerType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ChatId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreateDateTime" Type="DateTime" Precision="7" />
+    <Property Name="ModifyDateTime" Type="DateTime" Precision="7" />
+    <NavigationProperty Name="CustTable" Relationship="Self.FK_EngChatTable_CustTable_CustId_CompanyId" FromRole="EngChatTable" ToRole="CustTable" />
+  </EntityType>
+  <Association Name="FK_EngChatTable_CustTable_CustId_CompanyId">
+    <End Role="CustTable" Type="Self.CustTable" Multiplicity="0..1" />
+    <End Role="EngChatTable" Type="Self.EngChatTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustTable">
+        <PropertyRef Name="CustId" />
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="EngChatTable">
+        <PropertyRef Name="CustId" />
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ChatBotAppDataBaseTestEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CustAccounts" EntityType="Self.CustAccounts" />
+    <EntitySet Name="CustMeterPoints" EntityType="Self.CustMeterPoints" />
+    <EntitySet Name="CustTable" EntityType="Self.CustTable" />
+    <EntitySet Name="EngChatTable" EntityType="Self.EngChatTable" />
+    <AssociationSet Name="FK_EngChatTable_CustTable_CustId_CompanyId" Association="Self.FK_EngChatTable_CustTable_CustId_CompanyId">
+      <End Role="CustTable" EntitySet="CustTable" />
+      <End Role="EngChatTable" EntitySet="EngChatTable" />
+    </AssociationSet>
+    <EntitySet Name="TmpRelocationData" EntityType="ChatBotAppDataBaseTestModel.TmpRelocationData" />
+  </EntityContainer>
+  <EntityType Name="TmpRelocationData">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="r" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="t" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="y" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+</Schema>

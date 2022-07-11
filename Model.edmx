@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ChatBotAppDataBaseTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CustAccounts">
+          <Key>
+            <PropertyRef Name="KontAccountId" />
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="CustId" />
+          </Key>
+          <Property Name="KontAccountId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CustAccountId" Type="nvarchar(max)" />
+          <Property Name="WorksId" Type="nvarchar(max)" />
+          <Property Name="WorksName" Type="nvarchar(max)" />
+          <Property Name="CustType" Type="nvarchar(max)" />
+          <Property Name="GreenTariff" Type="nvarchar(max)" />
+          <Property Name="CustId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="RecId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreateDateTime" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="CustMeterPoints">
+          <Key>
+            <PropertyRef Name="EICCode" />
+          </Key>
+          <Property Name="RecId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KontAccountId" Type="nvarchar(max)" />
+          <Property Name="City" Type="nvarchar(max)" />
+          <Property Name="District" Type="nvarchar(max)" />
+          <Property Name="Street" Type="nvarchar(max)" />
+          <Property Name="HouseNumber" Type="nvarchar(max)" />
+          <Property Name="PostCode" Type="nvarchar(max)" />
+          <Property Name="Corp" Type="nvarchar(max)" />
+          <Property Name="FlatNumber" Type="nvarchar(max)" />
+          <Property Name="EICCode" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar(max)" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="450" />
+          <Property Name="CreateDateTime" Type="datetime2" Precision="7" />
+          <Property Name="ModifyDateTime" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="CustTable">
+          <Key>
+            <PropertyRef Name="CustId" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CustId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="nvarchar(max)" />
+          <Property Name="RecId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreateDateTime" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="EngChatTable">
+          <Key>
+            <PropertyRef Name="ChatId" />
+          </Key>
+          <Property Name="UserDialogId" Type="nvarchar" MaxLength="450" />
+          <Property Name="RecId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" />
+          <Property Name="TextMessage" Type="nvarchar(max)" />
+          <Property Name="StateId" Type="nvarchar(max)" />
+          <Property Name="TempStateId" Type="nvarchar(max)" />
+          <Property Name="LanguageId" Type="nvarchar" MaxLength="450" />
+          <Property Name="CompanyId" Type="nvarchar" MaxLength="450" />
+          <Property Name="CustId" Type="nvarchar" MaxLength="450" />
+          <Property Name="MessengerType" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ChatId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreateDateTime" Type="datetime2" Precision="7" />
+          <Property Name="ModifyDateTime" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="TmpRelocationData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="r" Type="nchar" MaxLength="10" />
+          <Property Name="t" Type="nchar" MaxLength="10" />
+          <Property Name="y" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_EngChatTable_CustTable_CustId_CompanyId">
+          <End Role="CustTable" Type="Self.CustTable" Multiplicity="0..1" />
+          <End Role="EngChatTable" Type="Self.EngChatTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustTable">
+              <PropertyRef Name="CustId" />
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="EngChatTable">
+              <PropertyRef Name="CustId" />
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ChatBotAppDataBaseTestModelStoreContainer">
+          <EntitySet Name="CustAccounts" EntityType="Self.CustAccounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustMeterPoints" EntityType="Self.CustMeterPoints" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustTable" EntityType="Self.CustTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EngChatTable" EntityType="Self.EngChatTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TmpRelocationData" EntityType="Self.TmpRelocationData" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EngChatTable_CustTable_CustId_CompanyId" Association="Self.FK_EngChatTable_CustTable_CustId_CompanyId">
+            <End Role="CustTable" EntitySet="CustTable" />
+            <End Role="EngChatTable" EntitySet="EngChatTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ChatBotAppDataBaseTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CustAccounts">
+          <Key>
+            <PropertyRef Name="KontAccountId" />
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="CustId" />
+          </Key>
+          <Property Name="KontAccountId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustAccountId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorksId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorksName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GreenTariff" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RecId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreateDateTime" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="CustMeterPoints">
+          <Key>
+            <PropertyRef Name="EICCode" />
+          </Key>
+          <Property Name="RecId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KontAccountId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HouseNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PostCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Corp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FlatNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EICCode" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDateTime" Type="DateTime" Precision="7" />
+          <Property Name="ModifyDateTime" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="CustTable">
+          <Key>
+            <PropertyRef Name="CustId" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CustId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RecId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreateDateTime" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="EngChatTable" Relationship="Self.FK_EngChatTable_CustTable_CustId_CompanyId" FromRole="CustTable" ToRole="EngChatTable" />
+        </EntityType>
+        <EntityType Name="EngChatTable">
+          <Key>
+            <PropertyRef Name="ChatId" />
+          </Key>
+          <Property Name="UserDialogId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="RecId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TextMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TempStateId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CustId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="MessengerType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ChatId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDateTime" Type="DateTime" Precision="7" />
+          <Property Name="ModifyDateTime" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="CustTable" Relationship="Self.FK_EngChatTable_CustTable_CustId_CompanyId" FromRole="EngChatTable" ToRole="CustTable" />
+        </EntityType>
+        <Association Name="FK_EngChatTable_CustTable_CustId_CompanyId">
+          <End Role="CustTable" Type="Self.CustTable" Multiplicity="0..1" />
+          <End Role="EngChatTable" Type="Self.EngChatTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustTable">
+              <PropertyRef Name="CustId" />
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="EngChatTable">
+              <PropertyRef Name="CustId" />
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ChatBotAppDataBaseTestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CustAccounts" EntityType="Self.CustAccounts" />
+          <EntitySet Name="CustMeterPoints" EntityType="Self.CustMeterPoints" />
+          <EntitySet Name="CustTable" EntityType="Self.CustTable" />
+          <EntitySet Name="EngChatTable" EntityType="Self.EngChatTable" />
+          <AssociationSet Name="FK_EngChatTable_CustTable_CustId_CompanyId" Association="Self.FK_EngChatTable_CustTable_CustId_CompanyId">
+            <End Role="CustTable" EntitySet="CustTable" />
+            <End Role="EngChatTable" EntitySet="EngChatTable" />
+          </AssociationSet>
+          <EntitySet Name="TmpRelocationData" EntityType="ChatBotAppDataBaseTestModel.TmpRelocationData" />
+        </EntityContainer>
+        <EntityType Name="TmpRelocationData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="r" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="t" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="y" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ChatBotAppDataBaseTestModelStoreContainer" CdmEntityContainer="ChatBotAppDataBaseTestEntities">
+          <EntitySetMapping Name="CustAccounts">
+            <EntityTypeMapping TypeName="ChatBotAppDataBaseTestModel.CustAccounts">
+              <MappingFragment StoreEntitySet="CustAccounts">
+                <ScalarProperty Name="KontAccountId" ColumnName="KontAccountId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CustAccountId" ColumnName="CustAccountId" />
+                <ScalarProperty Name="WorksId" ColumnName="WorksId" />
+                <ScalarProperty Name="WorksName" ColumnName="WorksName" />
+                <ScalarProperty Name="CustType" ColumnName="CustType" />
+                <ScalarProperty Name="GreenTariff" ColumnName="GreenTariff" />
+                <ScalarProperty Name="CustId" ColumnName="CustId" />
+                <ScalarProperty Name="RecId" ColumnName="RecId" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustMeterPoints">
+            <EntityTypeMapping TypeName="ChatBotAppDataBaseTestModel.CustMeterPoints">
+              <MappingFragment StoreEntitySet="CustMeterPoints">
+                <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
+                <ScalarProperty Name="RecId" ColumnName="RecId" />
+                <ScalarProperty Name="KontAccountId" ColumnName="KontAccountId" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="Corp" ColumnName="Corp" />
+                <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
+                <ScalarProperty Name="EICCode" ColumnName="EICCode" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustTable">
+            <EntityTypeMapping TypeName="ChatBotAppDataBaseTestModel.CustTable">
+              <MappingFragment StoreEntitySet="CustTable">
+                <ScalarProperty Name="CustId" ColumnName="CustId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+                <ScalarProperty Name="RecId" ColumnName="RecId" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EngChatTable">
+            <EntityTypeMapping TypeName="ChatBotAppDataBaseTestModel.EngChatTable">
+              <MappingFragment StoreEntitySet="EngChatTable">
+                <ScalarProperty Name="UserDialogId" ColumnName="UserDialogId" />
+                <ScalarProperty Name="RecId" ColumnName="RecId" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="TextMessage" ColumnName="TextMessage" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="TempStateId" ColumnName="TempStateId" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CustId" ColumnName="CustId" />
+                <ScalarProperty Name="MessengerType" ColumnName="MessengerType" />
+                <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+                <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TmpRelocationData">
+            <EntityTypeMapping TypeName="ChatBotAppDataBaseTestModel.TmpRelocationData">
+              <MappingFragment StoreEntitySet="TmpRelocationData">
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="t" ColumnName="t" />
+                <ScalarProperty Name="r" ColumnName="r" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ChatBotAppDataBaseTestModelStoreContainer" CdmEntityContainer="ChatBotAppDataBaseTestEntities">
+    <EntitySetMapping Name="CustAccounts">
+      <EntityTypeMapping TypeName="ChatBotAppDataBaseTestModel.CustAccounts">
+        <MappingFragment StoreEntitySet="CustAccounts">
+          <ScalarProperty Name="KontAccountId" ColumnName="KontAccountId" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="CustAccountId" ColumnName="CustAccountId" />
+          <ScalarProperty Name="WorksId" ColumnName="WorksId" />
+          <ScalarProperty Name="WorksName" ColumnName="WorksName" />
+          <ScalarProperty Name="CustType" ColumnName="CustType" />
+          <ScalarProperty Name="GreenTariff" ColumnName="GreenTariff" />
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+          <ScalarProperty Name="RecId" ColumnName="RecId" />
+          <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustMeterPoints">
+      <EntityTypeMapping TypeName="ChatBotAppDataBaseTestModel.CustMeterPoints">
+        <MappingFragment StoreEntitySet="CustMeterPoints">
+          <ScalarProperty Name="RecId" ColumnName="RecId" />
+          <ScalarProperty Name="KontAccountId" ColumnName="KontAccountId" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="District" ColumnName="District" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+          <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+          <ScalarProperty Name="Corp" ColumnName="Corp" />
+          <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
+          <ScalarProperty Name="EICCode" ColumnName="EICCode" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustTable">
+      <EntityTypeMapping TypeName="ChatBotAppDataBaseTestModel.CustTable">
+        <MappingFragment StoreEntitySet="CustTable">
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+          <ScalarProperty Name="RecId" ColumnName="RecId" />
+          <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EngChatTable">
+      <EntityTypeMapping TypeName="ChatBotAppDataBaseTestModel.EngChatTable">
+        <MappingFragment StoreEntitySet="EngChatTable">
+          <ScalarProperty Name="UserDialogId" ColumnName="UserDialogId" />
+          <ScalarProperty Name="RecId" ColumnName="RecId" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="TextMessage" ColumnName="TextMessage" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="TempStateId" ColumnName="TempStateId" />
+          <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+          <ScalarProperty Name="MessengerType" ColumnName="MessengerType" />
+          <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+          <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+          <ScalarProperty Name="ModifyDateTime" ColumnName="ModifyDateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
