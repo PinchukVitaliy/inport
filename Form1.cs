@@ -316,7 +316,7 @@ namespace importusers
         private void button3_Click(object sender, EventArgs e)
         {
             using (var dbb = new ChatBotAppDataBaseTestEntities())
-            {                
+            {
                 try
                 {
                     dbb.Database.Connection.Open();
